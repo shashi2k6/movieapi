@@ -1,5 +1,6 @@
 package com.movieapi.movieapi;
 
+import com.movieapi.movieapi.model.Movie;
 import com.movieapi.movieapi.service.MovieService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,18 @@ public class MovieServiceTest {
         assertEquals("Rocketeer",movieService.getMovies().get(4).getTitle());
         assertEquals("The Incredibles",movieService.getMovies().get(5).getTitle());
         assertEquals("The Lego Batman Movie",movieService.getMovies().get(6).getTitle());
+    }
+
+    @Test
+    void test_getMovieByTitle() throws IOException {
+        Movie movie = new Movie();
+        movie.setTitle("Steel");
+        movie.setDirector("Kenneth Johnson");
+        movie.setActors("Shaquille O'Neal, Annabeth Gish, Judd Nelson, Richard Roundtree");
+        movie.setRelease("1997");
+        movie.setDescription("A scientist for the military turns himself into a cartoon-like superhero when a version of one of his own weapons is being used against enemies.");
+        movie.setRating(null);
+
+        assertEquals(movie,movieService.getMovieByTitle("Steel"));
     }
 }

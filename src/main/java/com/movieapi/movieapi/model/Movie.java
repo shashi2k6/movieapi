@@ -1,5 +1,7 @@
 package com.movieapi.movieapi.model;
 
+import java.util.Objects;
+
 public class Movie {
 
     private String title;
@@ -58,5 +60,18 @@ public class Movie {
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return Objects.equals(title, movie.title) && Objects.equals(director, movie.director) && Objects.equals(actors, movie.actors) && Objects.equals(release, movie.release) && Objects.equals(description, movie.description) && Objects.equals(rating, movie.rating);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, director, actors, release, description, rating);
     }
 }
