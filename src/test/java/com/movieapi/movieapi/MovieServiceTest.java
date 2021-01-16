@@ -23,7 +23,8 @@ public class MovieServiceTest {
     /**
      * Test to see a list of all movies
      *
-     * @throws IOException
+     *
+     *
      */
     @Test
     void test_getMovieList_equalsListSize() throws IOException {
@@ -33,7 +34,7 @@ public class MovieServiceTest {
     /**
      * Test to get all the movies.
      *
-     * @throws IOException
+     *
      */
     @Test
     void test_getMovieNames() throws IOException {
@@ -49,7 +50,7 @@ public class MovieServiceTest {
     /**
      * Test to get movie by title.
      *
-     * @throws IOException
+     *
      */
     @Test
     void test_getMovieByTitle() throws IOException, GenericNotFoundException {
@@ -66,7 +67,7 @@ public class MovieServiceTest {
     /**
      * Test to update movie rating.
      *
-     * @throws IOException
+     *
      */
     @Test
     void test_updateMovieRating() throws IOException, GenericNotFoundException {
@@ -76,6 +77,10 @@ public class MovieServiceTest {
         assertEquals(4, movie.getAverageRating());
     }
 
+    /**
+     * when rating is missing throw and exception
+     *
+     */
     @Test
     void test_seeMovieDetailsWhenISubmitRating() throws IOException, GenericNotFoundException {
         MovieDetails movie = movieService.updateMovieRating("Unbreakable", 5, "bad movie");

@@ -12,23 +12,24 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
+@RequestMapping("/movie")
 public class MovieController {
 
     @Autowired
     private MovieService movieService;
 
 
-    @GetMapping("/movie")
+    @GetMapping()
     public List<Movie> getMovieList() throws IOException {
         return movieService.getMovies();
     }
 
-    @GetMapping("/movie/{title}")
+    @GetMapping("/{title}")
     public Movie getMovieList(@PathVariable String title) throws IOException, GenericNotFoundException {
         return movieService.getMovieByTitle(title);
     }
 
-    @PatchMapping("/movie")
+    @PatchMapping()
     public MovieDetails updateMovieRating(@RequestParam String title, @RequestParam String rating, @RequestParam String text) throws MissingServletRequestParameterException, IOException, GenericNotFoundException {
         if(rating == null || rating.equals("")){
         throw new MissingServletRequestParameterException("Star Rating is required");
