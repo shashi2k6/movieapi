@@ -1,5 +1,6 @@
 package com.movieapi.movieapi;
 
+import com.movieapi.movieapi.exception.GenericNotFoundException;
 import com.movieapi.movieapi.model.Movie;
 import com.movieapi.movieapi.model.MovieDetails;
 import com.movieapi.movieapi.service.MovieService;
@@ -51,7 +52,7 @@ public class MovieServiceTest {
      * @throws IOException
      */
     @Test
-    void test_getMovieByTitle() throws IOException {
+    void test_getMovieByTitle() throws IOException, GenericNotFoundException {
         Movie movie = new Movie();
         movie.setTitle("Steel");
         movie.setDirector("Kenneth Johnson");
@@ -67,14 +68,14 @@ public class MovieServiceTest {
      * @throws IOException
      */
     @Test
-    void test_updateMovieRating() throws IOException {
+    void test_updateMovieRating() throws IOException, GenericNotFoundException {
         MovieDetails movie = movieService.updateMovieRating("Unbreakable", 5 , "bad movie");
         assertEquals(5, movie.getAverageRating());
         movie = movieService.updateMovieRating("Unbreakable", 3, "bad movie");
         assertEquals(4, movie.getAverageRating());
     }
     @Test
-    void test_seeMovieDetailsWhenISubmitRating() throws IOException {
+    void test_seeMovieDetailsWhenISubmitRating() throws IOException, GenericNotFoundException {
         MovieDetails  movie = movieService.updateMovieRating("Unbreakable", 5, "bad movie");
         assertEquals(5, movie.getAverageRating());
         assertEquals(1, movie.getRating().size());
