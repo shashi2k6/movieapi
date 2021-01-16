@@ -2,6 +2,7 @@ package com.movieapi.movieapi.controller;
 
 import com.movieapi.movieapi.exception.GenericNotFoundException;
 import com.movieapi.movieapi.model.Movie;
+import com.movieapi.movieapi.model.MovieDetails;
 import com.movieapi.movieapi.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,10 @@ public class MovieController {
         return movieService.getMovieByTitle(title);
     }
 
+    @PatchMapping("/movie")
+    public MovieDetails updateMovieRating(@RequestParam String title, @RequestParam String rating, @RequestParam String text) throws IOException, GenericNotFoundException {
+        return movieService.updateMovieRating(title,Integer.parseInt(rating), text);
+    }
 
 
 }

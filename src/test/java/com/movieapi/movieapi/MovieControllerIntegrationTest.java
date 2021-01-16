@@ -12,10 +12,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import javax.transaction.Transactional;
+
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -27,7 +29,10 @@ public class MovieControllerIntegrationTest {
     @Autowired
     ObjectMapper mapper;
 
-
+    /**
+     * test to get all the movies from the data base
+     * @throws Exception
+     */
     @Test
     public void test_getAllMovieList() throws Exception {
         mockMvc.perform(get("/movie"))
@@ -35,7 +40,10 @@ public class MovieControllerIntegrationTest {
                 .andExpect(jsonPath("$.*",hasSize(7)))
         ;
     }
-
+    /**
+     * test to get the  movie by title
+     * @throws Exception
+     */
     @Test
     public  void test_getMovieByTitle() throws Exception {
         mockMvc.perform(get("/movie/Steel"))
@@ -44,10 +52,33 @@ public class MovieControllerIntegrationTest {
                 .andExpect(jsonPath("$.release").value("1997"))
         ;
     }
+    /**
+     * test for if movie by title does not exist
+     * @throws Exception
+     */
     @Test
-    public  void test_getMovieByTitle_doesNotExist() throws Exception {
+    public void test_getMovieByTitle_doesNotExist() throws Exception {
         mockMvc.perform(get("/movie/Steels"))
                 .andExpect(status().isNotFound())
+                .andExpect(content().string("Movie does not Exist"))
+
+        ;
+    }
+
+    /**
+     * test to update movie rating by title
+     * @throws Exception
+     */
+    @Test
+    public void test_updateMovieRatingByTitle() throws Exception {
+        mockMvc.perform(patch("/movie")
+                .param("title","Steel")
+                .param("rating","5")
+                .param("text","good movie"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("Steel"))
+                .andExpect(jsonPath("$.averageRating").value(5))
+
 
         ;
     }

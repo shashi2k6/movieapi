@@ -44,7 +44,7 @@ public class MovieService {
     }
 
     public Movie getMovieByTitle(String title) throws IOException, GenericNotFoundException {
-        return movieRepository.findById(title).orElseThrow(() -> new GenericNotFoundException("Hero does not Exist"));
+        return movieRepository.findById(title).orElseThrow(() -> new GenericNotFoundException("Movie does not Exist"));
     }
 
     public MovieDetails updateMovieRating(String title, int movieRating, String textReview) throws IOException, GenericNotFoundException {
