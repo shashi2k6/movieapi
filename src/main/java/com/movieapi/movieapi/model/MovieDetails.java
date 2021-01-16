@@ -7,15 +7,19 @@ import java.util.Objects;
 
 @Entity
 public class MovieDetails {
+
     @Id
     private String title;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Movie movie;
+
     private int averageRating;
     @ElementCollection(targetClass = Integer.class)
+
     private List<Integer> rating;
     @ElementCollection(targetClass = String.class)
+
     private List<String> texts;
 
     public MovieDetails() {

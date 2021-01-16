@@ -17,7 +17,6 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-
     @GetMapping("/movie")
     public List<Movie> getMovieList() throws IOException {
         return movieService.getMovies();
@@ -33,9 +32,6 @@ public class MovieController {
         if(rating == null || rating.equals("")){
         throw new MissingServletRequestParameterException("Star Rating is required");
         }
-
         return movieService.updateMovieRating(title,Integer.parseInt(rating), text);
     }
-
-
 }
