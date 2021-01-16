@@ -2,27 +2,29 @@ package com.movieapi.movieapi.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class MovieDetails {
-
     @Id
     private String title;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Movie movie;
     private int averageRating;
-    @ElementCollection(targetClass=Integer.class)
+    @ElementCollection(targetClass = Integer.class)
     private List<Integer> rating;
-    @ElementCollection(targetClass=String.class)
+    @ElementCollection(targetClass = String.class)
     private List<String> texts;
 
     public MovieDetails() {
         this.rating = new ArrayList<>();
         this.texts = new ArrayList<>();
+    }
+
+    public static List<Integer> getRatings(String title) {
+        return new ArrayList<>();
     }
 
     public String getTitle() {
@@ -77,14 +79,5 @@ public class MovieDetails {
     public int hashCode() {
         return Objects.hash(title, movie, averageRating, rating, texts);
     }
-
-    public static List<Integer> getRatings(String title) {
-        return new ArrayList<>();
-    }
-
-    // Movie object
-    // List for Ratings
-    // Average Rating
-    // List of text review
 
 }
