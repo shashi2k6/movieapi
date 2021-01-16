@@ -70,4 +70,17 @@ public class MovieControllerIntegrationTest {
                 .andExpect(jsonPath("$.title").value("Steel"))
                 .andExpect(jsonPath("$.averageRating").value(5));
     }
+    @Test
+    public void test_updateMovieRatingByTitle_throwsException() throws Exception {
+        mockMvc.perform(patch("/movie")
+                .param("title","Steel")
+                .param("text","good movie")
+                .param("rating","")
+        )
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("Star Rating is required"))
+                ;
+
+
+    }
 }

@@ -1,6 +1,7 @@
 package com.movieapi.movieapi.controller;
 
 import com.movieapi.movieapi.exception.GenericNotFoundException;
+import com.movieapi.movieapi.exception.MissingServletRequestParameterException;
 import com.movieapi.movieapi.model.Movie;
 import com.movieapi.movieapi.model.MovieDetails;
 import com.movieapi.movieapi.service.MovieService;
@@ -28,7 +29,11 @@ public class MovieController {
     }
 
     @PatchMapping("/movie")
-    public MovieDetails updateMovieRating(@RequestParam String title, @RequestParam String rating, @RequestParam String text) throws IOException, GenericNotFoundException {
+    public MovieDetails updateMovieRating(@RequestParam String title, @RequestParam String rating, @RequestParam String text) throws MissingServletRequestParameterException, IOException, GenericNotFoundException {
+        if(rating == null || rating.equals("")){
+        throw new MissingServletRequestParameterException("Star Rating is required");
+        }
+
         return movieService.updateMovieRating(title,Integer.parseInt(rating), text);
     }
 
