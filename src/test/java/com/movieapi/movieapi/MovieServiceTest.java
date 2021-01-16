@@ -12,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class MovieServiceTest {
@@ -65,6 +66,9 @@ public class MovieServiceTest {
      */
     @Test
     void test_updateMovieRating() throws IOException {
-        assertEquals(5,movieService.updateMovieRating("Unbreakable",5).getRating());
+        Movie movie = movieService.updateMovieRating("Unbreakable", 5);
+        assertEquals(5, movie.getRating());
+        movie = movieService.updateMovieRating("Unbreakable", 3);
+        assertEquals(4, movie.getRating());
     }
 }

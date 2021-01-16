@@ -64,6 +64,9 @@ public class Movie {
     }
 
     public void setRating(Integer rating) {
+        if(this.rating != null){
+            this.rating = (int) ((this.getRating() + rating)/2);
+        } else
         this.rating = rating;
     }
 
