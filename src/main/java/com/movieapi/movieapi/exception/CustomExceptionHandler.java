@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class CustomExceptionHandler {
 
     @ExceptionHandler(GenericNotFoundException.class)
-    public String handleNotFound(GenericNotFoundException genericNotFoundException) {
-        return genericNotFoundException.getMessage();
+    public ResponseEntity<String> handleNotFound(GenericNotFoundException genericNotFoundException) {
+        return new ResponseEntity<>(genericNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
     }
 }

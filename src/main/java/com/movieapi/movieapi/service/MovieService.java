@@ -2,6 +2,7 @@ package com.movieapi.movieapi.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.movieapi.movieapi.exception.GenericNotFoundException;
 import com.movieapi.movieapi.model.MovieDetails;
 import com.movieapi.movieapi.repository.MovieDetailsRepository;
 import com.movieapi.movieapi.repository.MovieRepository;
@@ -42,11 +43,11 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public Movie getMovieByTitle(String title) throws IOException {
-        return movieRepository.findById(title).get();
+    public Movie getMovieByTitle(String title) throws IOException, GenericNotFoundException {
+        return movieRepository.findById(title).orElseThrow(() -> new GenericNotFoundException("Hero does not Exist"));
     }
 
-    public MovieDetails updateMovieRating(String title, int movieRating, String textReview) throws IOException {
+    public MovieDetails updateMovieRating(String title, int movieRating, String textReview) throws IOException, GenericNotFoundException {
         Movie movie = getMovieByTitle(title);
         movie.setRating(movieRating);
 
@@ -64,4 +65,5 @@ public class MovieService {
         return movieDetailsRepository.save(movieDetails);
 
     }
+
 }
