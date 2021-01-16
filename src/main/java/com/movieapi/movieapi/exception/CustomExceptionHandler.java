@@ -12,4 +12,8 @@ public class CustomExceptionHandler {
     public ResponseEntity<String> handleNotFound(GenericNotFoundException genericNotFoundException) {
         return new ResponseEntity<>(genericNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler (MissingServletRequestParameterException.class)
+    public ResponseEntity<String> handleMissingParameter(MissingServletRequestParameterException missingServletRequestParameterException) {
+        return new ResponseEntity<>(missingServletRequestParameterException.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
