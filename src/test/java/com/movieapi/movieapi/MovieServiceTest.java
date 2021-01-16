@@ -1,6 +1,7 @@
 package com.movieapi.movieapi;
 
 import com.movieapi.movieapi.model.Movie;
+import com.movieapi.movieapi.model.MovieDetails;
 import com.movieapi.movieapi.service.MovieService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 public class MovieServiceTest {
 
     @Autowired
@@ -66,9 +68,16 @@ public class MovieServiceTest {
      */
     @Test
     void test_updateMovieRating() throws IOException {
-        Movie movie = movieService.updateMovieRating("Unbreakable", 5);
-        assertEquals(5, movie.getRating());
-        movie = movieService.updateMovieRating("Unbreakable", 3);
-        assertEquals(4, movie.getRating());
+        MovieDetails movie = movieService.updateMovieRating("Unbreakable", 5 , "bad movie");
+        assertEquals(5, movie.getAverageRating());
+        movie = movieService.updateMovieRating("Unbreakable", 3, "bad movie");
+        assertEquals(4, movie.getAverageRating());
+    }
+    @Test
+    void test_seeMovieDetailsWhenISubmitRating() throws IOException {
+        MovieDetails  movie = movieService.updateMovieRating("Unbreakable", 5, "bad movie");
+        assertEquals(5, movie.getAverageRating());
+        assertEquals(1, movie.getRating().size());
+
     }
 }

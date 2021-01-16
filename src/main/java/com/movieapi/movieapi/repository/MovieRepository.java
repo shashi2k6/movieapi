@@ -1,4 +1,4 @@
-package com.movieapi.movieapi;
+package com.movieapi.movieapi.repository;
 
 import com.movieapi.movieapi.model.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
