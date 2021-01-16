@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -70,17 +71,18 @@ public class MovieControllerIntegrationTest {
                 .andExpect(jsonPath("$.title").value("Steel"))
                 .andExpect(jsonPath("$.averageRating").value(5));
     }
+
+    /**
+     * update movie by rating and title, without the rating.
+     * @throws Exception
+     */
     @Test
     public void test_updateMovieRatingByTitle_throwsException() throws Exception {
         mockMvc.perform(patch("/movie")
                 .param("title","Steel")
                 .param("text","good movie")
-                .param("rating","")
-        )
+                .param("rating",""))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string("Star Rating is required"))
-                ;
-
-
+                .andExpect(content().string("Star Rating is required"));
     }
 }
