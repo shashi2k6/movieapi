@@ -33,6 +33,8 @@ Given a movie with one 5 star rating and one 3 star rating
 When I view the movie details
 Then I expect the star rating to be 4.
 
+## User story 4:
+
 Given an existing movie
 When I submit a star rating and text review
 Then I can see my contribution on the movie details.
