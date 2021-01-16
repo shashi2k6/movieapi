@@ -1,10 +1,15 @@
 package com.movieapi.movieapi.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 
+@Entity
 public class Movie {
 
+    @Id
     private String title;
+
     private String director;
     private String actors;
     private String release;

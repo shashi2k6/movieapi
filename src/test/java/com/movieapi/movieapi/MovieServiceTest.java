@@ -19,11 +19,19 @@ public class MovieServiceTest {
     @Autowired
     private MovieService movieService;
 
+    /**
+     * Test to see a list of all movies
+     * @throws IOException
+     */
     @Test
     void test_getMovieList_equalsListSize() throws IOException {
         assertEquals(7,movieService.getMovies().size());
     }
 
+    /**
+     * Test to get all the movies.
+     * @throws IOException
+     */
     @Test
     void test_getMovieNames() throws IOException {
         assertEquals("The Avengers",movieService.getMovies().get(0).getTitle());
@@ -35,6 +43,10 @@ public class MovieServiceTest {
         assertEquals("The Lego Batman Movie",movieService.getMovies().get(6).getTitle());
     }
 
+    /**
+     * Test to get movie by title.
+     * @throws IOException
+     */
     @Test
     void test_getMovieByTitle() throws IOException {
         Movie movie = new Movie();
@@ -44,7 +56,15 @@ public class MovieServiceTest {
         movie.setRelease("1997");
         movie.setDescription("A scientist for the military turns himself into a cartoon-like superhero when a version of one of his own weapons is being used against enemies.");
         movie.setRating(null);
-
         assertEquals(movie,movieService.getMovieByTitle("Steel"));
+    }
+
+    /**
+     * Test to update movie rating.
+     * @throws IOException
+     */
+    @Test
+    void test_updateMovieRating() throws IOException {
+        assertEquals(5,movieService.updateMovieRating("Unbreakable",5).getRating());
     }
 }
